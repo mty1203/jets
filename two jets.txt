@@ -1,0 +1,113 @@
+data begin
+#########event 8523
+ 1 11 origin0  ks=21
+ 2 2212 origin0  ks=21
+ 3 11 origin1  ks=21
+ 4 22 origin1  ks=21
+ 5 2212 origin2  ks=21
+ 6 22 origin4  ks=21
+ 7 2 origin5  ks=21
+ 8 22 origin6  ks=21
+ 9 2 origin7  ks=21
+ 10 2 origin9  ks=21 #struck quark
+ 11 11 origin3  ks=1
+ 12 2103 origin5  ks=12
+ 13 21 origin10  ks=12
+ 14 2 origin10  ks=11
+ 15 92 origin12  ks=11
+ 16 2212 origin15  ks=1
+ 17 -211 origin15  ks=1
+ 18 223 origin15  ks=11
+ 19 223 origin15  ks=11
+ 20 213 origin15  ks=11
+ 21 -213 origin15  ks=11
+ 22 -2112 origin15  ks=1
+ 23 2112 origin15  ks=1
+ 24 213 origin15  ks=11
+ 25 -211 origin18  ks=1
+ 26 211 origin18  ks=1
+ 27 111 origin18  ks=11
+ 28 -211 origin19  ks=1
+ 29 211 origin19  ks=1
+ 30 111 origin19  ks=11
+ 31 211 origin20  ks=1
+ 32 111 origin20  ks=11
+ 33 -211 origin21  ks=1
+ 34 111 origin21  ks=11
+ 35 211 origin24  ks=1
+ 36 111 origin24  ks=11
+ 37 22 origin27  ks=1
+ 38 22 origin27  ks=1
+ 39 22 origin30  ks=1
+ 40 22 origin30  ks=1
+ 41 22 origin32  ks=1
+ 42 22 origin32  ks=1
+ 43 22 origin34  ks=1
+ 44 22 origin34  ks=1
+ 45 22 origin36  ks=1
+ 46 -11 origin36  ks=1
+ 47 11 origin36  ks=1
+
+######jet
+0.518368 -1.20304 6.01721 22  45 5   energy0.940964  jet pt 5.93464  -1.06519 event 8523
+0.243792 -1.2283 0.110049 -11  46 5   energy0.452017  jet pt 5.93464  -1.06519 event 8523
+1.46828 -0.791906 0.0920013 -2112  22 5   energy2.31892  jet pt 5.93464  -1.06519 event 8523
+0.387241 -0.877634 0.409845 2112  23 5   energy1.43339  jet pt 5.93464  -1.06519 event 8523
+3.38986 -0.979473 0.240642 211  35 5   energy5.15452  jet pt 5.93464  -1.06519 event 8523
+######
+
+#########53196
+ 1 11 origin0  ks=21
+ 2 2212 origin0  ks=21
+ 3 11 origin1  ks=21
+ 4 22 origin1  ks=21
+ 5 2212 origin2  ks=21
+ 6 22 origin4  ks=21
+ 7 2 origin5  ks=21
+ 8 22 origin6  ks=21
+ 9 2 origin7  ks=21
+ 10 2 origin9  ks=21  #struck quark
+ 11 11 origin3  ks=1
+ 12 2101 origin5  ks=12
+ 13 21 origin10  ks=12
+ 14 21 origin10  ks=12
+ 15 21 origin10  ks=12
+ 16 21 origin10  ks=12
+ 17 2 origin10  ks=11
+ 18 92 origin12  ks=11
+ 19 2112 origin18  ks=1
+ 20 113 origin18  ks=11
+ 21 221 origin18  ks=11
+ 22 111 origin18  ks=11
+ 23 -2114 origin18  ks=11
+ 24 2114 origin18  ks=11
+ 25 213 origin18  ks=11
+ 26 -211 origin20  ks=1
+ 27 211 origin20  ks=1
+ 28 -211 origin21  ks=1
+ 29 211 origin21  ks=1
+ 30 111 origin21  ks=11
+ 31 22 origin22  ks=1
+ 32 22 origin22  ks=1
+ 33 -2112 origin23  ks=1
+ 34 111 origin23  ks=11
+ 35 2112 origin24  ks=1
+ 36 111 origin24  ks=11
+ 37 211 origin25  ks=1
+ 38 111 origin25  ks=11
+ 39 22 origin30  ks=1
+ 40 22 origin30  ks=1
+ 41 22 origin34  ks=1
+ 42 22 origin34  ks=1
+ 43 22 origin36  ks=1
+ 44 22 origin36  ks=1
+ 45 22 origin38  ks=1
+ 46 22 origin38  ks=1
+
+######jet
+2.08278 -1.20537 1.63183 211  37 5   energy3.79664  jet pt 5.17815  -1.01489 event 53196
+0.500065 -0.892773 1.91625 22  44 5   energy0.712946  jet pt 5.17815  -1.01489 event 53196
+1.0318 -0.874064 1.76369 22  46 5   energy1.45168  jet pt 5.17815  -1.01489 event 53196
+0.916259 -0.688465 1.72396 2112  35 5   energy1.63588  jet pt 5.17815  -1.01489 event 53196
+0.665863 -0.726933 1.69417 22  45 5   energy0.849679  jet pt 5.17815  -1.01489 event 53196
+######
