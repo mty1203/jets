@@ -47,7 +47,6 @@ data begin
  45 22 origin36  ks=1
  46 -11 origin36  ks=1
  47 11 origin36  ks=1
-
 ######jet
 0.518368 -1.20304 6.01721 22  45 5   energy0.940964  jet pt 5.93464  -1.06519 event 8523
 0.243792 -1.2283 0.110049 -11  46 5   energy0.452017  jet pt 5.93464  -1.06519 event 8523
