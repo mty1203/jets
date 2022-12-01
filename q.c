@@ -14,13 +14,11 @@ void find_matching_index(erhic::EventPythia* evt, vector<PseudoJet>& constit, ve
 int find_quark_origin(erhic::EventPythia* evt, erhic::ParticleMC* part);
 static int jet_number=1;
 int find_origin(erhic::EventPythia* evt, erhic::ParticleMC* part);
-vector<int> list_info =vector<int>() ;
-int find_quark(erhic::EventPythia* evt,vector<int> daughter);
-void jets()
+void q()
 {
   loadStyle();
   ofstream myfile;
-  myfile.open ("jets.txt"); 
+  myfile.open ("q.txt"); 
   myfile << "data begin\n"; 
   erhic::EventPythia *evt(NULL); 
   erhic::ParticleMC *particle(NULL); 
@@ -32,7 +30,7 @@ void jets()
   cout<<"Total Number of Events = "<<nEntries<<endl<<endl;
 
   tree->SetBranchAddress("event",&evt);
-  TH1D *fraction[3][3];
+  TH2D *fraction[3][3];
   char *histname = new char[10];
   double etahigh[3]={-1,1,3.5};
   double etalow[3] = {-3.5,-1,1};
@@ -43,7 +41,7 @@ void jets()
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction[ihigh][jhigh] = new TH1D(histname,"",50,0.,1.1);
+        fraction[ihigh][jhigh] = new TH2D(histname,"",55,0.,1.1,55,0.,1.1);
        }
     }  
   TH1F *eta = new TH1F("eta","",100,-5,5);
@@ -51,33 +49,29 @@ void jets()
   TH1F *area = new TH1F("area","",50,0,10);
   TH1F *conts = new TH1F("conts","",25,0,25); 
   TH2F *h1=new TH2F("","",40,0,20,25,0,25);
-     TH1F *ep = new TH1F("ep","",50,2,4); 
-TH1F *ch = new TH1F("ch","",10,0,10); 
-TH1F *charged_hadron = new TH1F("ch","",50,0,1.1); 
-TH1F *neutral = new TH1F("neutral","",50,0,1.1); 
-TH1F *photon = new TH1F("photon","",50,0,1.1); 
+  TH1F *ep = new TH1F("ep","",50,2,4); 
+  TH1F *ch = new TH1F("ch","",10,0,10); 
+  TH1F *charged_hadron = new TH1F("ch","",50,0,1.1); 
+  TH1F *neutral = new TH1F("neutral","",50,0,1.1); 
+  TH1F *photon = new TH1F("photon","",50,0,1.1); 
   TH1F *theta = new TH1F("theta","",50,-0.1,0.1); 
-   TH2F *thetajet = new TH2F("thetajet","",50,-5,5,20,0,20); 
+  TH2F *thetajet = new TH2F("thetajet","",50,-5,5,20,0,20); 
   TH1F *strucku= new TH1F("u","",50,0.,30.);
- TH1F *struckd=new TH1F("d","",50,0.,30.);
- TH2F *E = new TH2F("E","",50,0,1,50,0,200); 
+  TH1F *struckd=new TH1F("d","",50,0.,30.);
+  TH2F *E = new TH2F("E","",50,0,1,50,0,200); 
  //int counter_K_plus = 0, counter_K_minus = 0, counter_K_L = 0,counter_pi_plus =0,counter_proton=0,counter_pi=0,counter_photon=0,counter_rho=0,counter_rho_plus=0,counter_neutron=0,counter_pi_minus=0;
-  for(Int_t j=0;j<nEntries;j++)
-  { 
+  for(Int_t j=0;j<nEntries;j++){ 
    cout<<"***********************reading event"<<j<<"*********************"<<endl;
      tree->GetEntry(j);
     int process=evt->GetProcess();
    if(process!=99) continue;
   vector<PseudoJet> jet_constits;
-    vector<int> first_daughter_quark = vector<int>();
   for (int ipart = 0; ipart < evt->GetNTracks(); ++ipart)
 {  particle = evt->GetTrack(ipart);
    if (particle->GetStatus()==1 && fabs(particle->GetEta())<3.5 && particle->Id()!=11) 
-     jet_constits.push_back( PseudoJet(particle->GetPx(),particle->GetPy(),particle->GetPz(),particle->GetE()) );
-     if(particle->GetParentIndex()==10)
-     first_daughter_quark.push_back(particle->GetIndex());
+   jet_constits.push_back(PseudoJet(particle->GetPx(),particle->GetPy(),particle->GetPz(),particle->GetE()));
 }
-  
+
 JetDefinition R1jetdef(antikt_algorithm, 0.6); // anti-kt and R = 1
 //ClusterSequence cs(jet_constits, R1jetdef);
 //vector<PseudoJet> jets = sorted_by_pt(cs.inclusive_jets());
@@ -105,7 +99,6 @@ for (int ipart = 0;ipart< evt->GetNTracks(); ++ipart)
  Int_t track_number = evt->GetTrack(ipart)->Id();  
  pdg1 =  pdgn->GetParticle(abs(track_number));
  if(pdg1==NULL) {counter_quarks++; continue;}
-  
   TString n = pdg1->ParticleClass();
  if(n == "Quark") ++counter_quarks;
  if(counter_quarks==3)
@@ -113,19 +106,8 @@ for (int ipart = 0;ipart< evt->GetNTracks(); ++ipart)
     break;
   }
 }
-    erhic::ParticleMC* sq = evt->GetTrack(find_quark(evt,first_daughter_quark)-1);
-    int sqdaughter = sq->GetChild1Index(); //string
-    int daughter_begin = evt->GetTrack(sqdaughter-1)->GetChild1Index();
-    int daughter_end = evt->GetTrack(sqdaughter-1)->GetChildNIndex();
-    vector<int> string_daughter = vector<int>(); 
-    for (int idaughter=daughter_begin;idaughter<=daughter_end;idaughter++)
-    {
-     erhic::ParticleMC* particle_candidates = evt->GetTrack(idaughter-1);
-     if(particle_candidates->GetPz()<0)
-        string_daughter.push_back(idaughter);
-    if(particle_candidates->GetPz()>0&&particle_candidates->GetPz()<0.3&&particle_candidates->GetPt()>0.6)
-      string_daughter.push_back(idaughter);
-    }
+if(fabs(phi_quark-phi_electron)-3.1415926 >=0.1) cout<<"**************************trouble finding pdg "<<j<<"******************************"<<endl;
+theta->Fill(fabs(phi_quark-phi_electron)-3.1415926);
 for (unsigned ijet = 0; ijet < jets1.size(); ijet++)
 {  
     myfile<<"######"<<endl;
@@ -142,10 +124,6 @@ for (unsigned ijet = 0; ijet < jets1.size(); ijet++)
     double other_energy=0;
     TLorentzVector struck = TLorentzVector(0,0,0,0);
     int counter=0; // at least two particles originating from struck quark
-    cout<<"size of con"<<constituents.size()<<endl;
-
-
-    cout<<"get child"<<sqdaughter<<endl;
     for (unsigned iconstit = 0; iconstit < constituents.size(); iconstit++)
     {   
         int track_index = matching_index[iconstit];
@@ -155,25 +133,11 @@ for (unsigned ijet = 0; ijet < jets1.size(); ijet++)
             Int_t track_id = evt->GetTrack(track_index-1)->Id();     
             erhic::ParticleMC* particle = evt->GetTrack(track_index-1);
             TLorentzVector vec = particle->PxPyPzE();//get 4 momentum
-            double energy = particle->GetE();    
+            double energy = particle->GetE();
+            //int quark_origin = find_quark_origin(evt,particle);
             int origin = find_origin(evt,particle);
-            cout<<"in the info list"<<list_info.size()<<endl;
-            //if(std::find(list_info.begin(), list_info.end(), sqdaughter) != list_info.end())
-            //origin =10;
-          if(std::find(string_daughter.begin(), string_daughter.end(), track_index) != string_daughter.end())
-            {
-              origin = 10;
-            } 
-            for (int i_info=0;i_info<list_info.size();i_info++)
-            {
-              if(std::find(string_daughter.begin(), string_daughter.end(), list_info[i_info]) != string_daughter.end()) 
-               {
-               origin = 10;
-               break;
-               }
-            } 
-            cout<< origin;
-            //myfile<<particle->GetPt()<<" "<<particle->GetRapidity()<<" "<<particle->GetPhi()<<" "<<track_id<<" "<<" "<<track_index<<" "<<origin<<"   energy"<<vec.E()<<"  "<<"jet pt"<<" "<<jets1[ijet].pt()<<"  "<<jets1[ijet].eta()<<" event "<<j<<endl;
+            //if(jets1[ijet].eta()>=-3.5&&jets1[ijet].eta()<-1&&jets1[ijet].pt()>=5) 
+             myfile<<particle->GetPt()<<" "<<particle->GetRapidity()<<" "<<particle->GetPhi()<<" "<<track_id<<" "<<" "<<track_index<<" "<<origin<<"   energy"<<vec.E()<<"  "<<"jet pt"<<" "<<jets1[ijet].pt()<<"  "<<jets1[ijet].eta()<<" event "<<j<<endl;
             if(origin ==10) 
             { 
               struck+=vec;
@@ -181,13 +145,11 @@ for (unsigned ijet = 0; ijet < jets1.size(); ijet++)
             }
             else remnant+=vec;
             pdg =  pdgn->GetParticle(track_id);
-           
-         list_info.clear();
+
         }
-        
+        thetajet->Fill(jets1[ijet].eta(),counter);
         
     } 
-     
    
       double den=jets1[ijet].e();
       double charged_hadron_ratio=struck.E()/den;
@@ -201,7 +163,7 @@ for (unsigned ijet = 0; ijet < jets1.size(); ijet++)
         {for(int jdex=0;jdex<3;jdex++)
            {
              if((jets1[ijet].pt()>=ptlow[jdex]&&jets1[ijet].pt()<pthigh[jdex])&&(jets1[ijet].eta()>=etalow[idex]&&jets1[ijet].eta()<etahigh[idex]))
-                fraction[idex][jdex]->Fill(photon_ratio);
+                fraction[idex][jdex]->Fill(charged_hadron_ratio,photon_ratio);
            }
         }
    }
@@ -216,7 +178,7 @@ for (int ieta=0;ieta<3;ieta++)
     {
       k++;
       c1->cd(k);
-      c1->cd(k)->SetLogy();
+      //c1->cd(k)->SetLogz(1);
       string ptcut ="<p_{t}<";
       string etacut = "<eta<";
       stringstream ss;
@@ -224,9 +186,9 @@ for (int ieta=0;ieta<3;ieta++)
       fraction[ieta][ipt]->SetTitle(ss.str().c_str());
       stringstream mean;
       
-      fraction[ieta][ipt]->GetXaxis()->SetTitle("Energy");
-      fraction[ieta][ipt]->GetYaxis()->SetTitle("Number of jets");
-      fraction[ieta][ipt]->Draw();
+      fraction[ieta][ipt]->GetXaxis()->SetTitle("Energy arose from struck quark");
+      fraction[ieta][ipt]->GetYaxis()->SetTitle("energy arose from remnant");
+      fraction[ieta][ipt]->Draw("colz");
       TLatex latex;
       latex.SetTextAlign(13);  //align at top
       mean<<"mean = "<<fraction[ieta][ipt]->GetMean();
@@ -238,7 +200,7 @@ for (int ieta=0;ieta<3;ieta++)
       text->SetTextFont(72);
       text->SetTextAlign(22);
       
-      pave->Draw();
+      //pave->Draw();
       //latex.DrawLatex(.2,.9,mean.str().c_str());
       //stringstream mean;
       //mean<<"mean value = "<<fraction[ieta][ipt]->GetMean();
@@ -320,28 +282,15 @@ int find_quark_origin(erhic::EventPythia* evt, erhic::ParticleMC* part)
 
 int find_origin(erhic::EventPythia* evt, erhic::ParticleMC* part)
 {
-  //find the struck quark daughter
-  //erhic::ParticleMC* sq = evt->GetTrack(14);
-  //int sqdaughter = sq->GetChild1Index();
+  //
   int event_index= part->GetIndex();
   if (event_index>10)
     {
-      //cout<<event_index;
+       cout<<event_index;
        int parent_indx = part->GetParentIndex();
-       list_info.push_back(parent_indx);
-       cout<<"parent_indx"<<parent_indx<<endl;
        if (parent_indx==0) return 0;
        erhic::ParticleMC* parent = evt->GetTrack(parent_indx-1);
       return find_origin(evt, parent);
     }
   else if(event_index<=10)return event_index;
-}
-int find_quark(erhic::EventPythia* evt,vector<int> daughter)
-{
-  for (int i = 0;i<daughter.size();i++)
-    {
-      int number = evt->GetTrack(daughter[i]-1)->Id();
-      if(number==evt->GetTrack(9)->Id())
-        return daughter[i];
-    }
 }

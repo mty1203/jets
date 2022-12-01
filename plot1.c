@@ -27,7 +27,7 @@ static int jet_number=1;
 int find_origin(erhic::EventPythia* evt, erhic::ParticleMC* part);
 static int counter;
 TDatabasePDG *pdgn = new TDatabasePDG();
-void plot()
+void plot1()
 {  loadStyle();
 s(0.3);
 //   double etahigh[3]={-1,1,3.5};
@@ -81,11 +81,11 @@ s(0.3);
 }
 void s(double threshold)
 {
-  //int flavor[2][3]={1,2,3,-1,-2,-3};
+ //int flavor[2][3]={1,2,3,-1,-2,-3};
   int flavor[2][3]={4,5,6,-4,-5,-6};
-  //string os_X[8] = {"p^{-}","K^{-}","#pi^{-}","#pi^{+}","K^{+}","p^{+}","photon","neutral_hadrons"};
- string os_X[4] = {"charged hadrons","neutral hadrons","leptons","photons"};
- // string os_y[6] = {"d","u","s","#bar{d}","#bar{u}","#bar{s}"};
+  string os_X[8] = {"p^{-}","K^{-}","#pi^{-}","#pi^{+}","K^{+}","p^{+}","photon","neutral_hadrons"};
+ //string os_X[4] = {"charged hadrons","neutral hadrons","leptons","photons"};
+  //string os_y[6] = {"d","u","s","#bar{d}","#bar{u}","#bar{s}"};
 
   string os_y[6] = {"c","b","t","#bar{c}","#bar{b}","#bar{t}"};
   TH1D *fraction[2][3];
@@ -111,7 +111,7 @@ void s(double threshold)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
          cout<<flavor[ihigh][jhigh]<<endl;
-        fraction[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -120,7 +120,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction1[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction1[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -129,7 +129,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction2[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction2[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -138,7 +138,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction3[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction3[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -147,7 +147,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction4[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction4[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -156,7 +156,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction5[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction5[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -165,7 +165,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction6[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction6[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -174,7 +174,7 @@ void s(double threshold)
       for(int jhigh=0;jhigh<3;jhigh++)
        {
          sprintf(histname, "h_x_%d_%d",ihigh,jhigh); 
-        fraction7[ihigh][jhigh] = new TH1D(histname,"",11,0.,1.1);
+        fraction7[ihigh][jhigh] = new TH1D(histname,"",22,0.,1.1);
 
        }
     }  
@@ -184,7 +184,7 @@ void s(double threshold)
   double pt=0,eta=0;
   //TLorentzVector struck = TLorentzVector(0,0,0,0);
   //TLorentzVector all_particle = TLorentzVector(0,0,0,0);
-  myfile.open("jet_18_275_2_heavy_5GeV.txt"); 
+  myfile.open("jet_lepton.txt"); 
   int counter_all =0;
   while(getline(myfile, line)) 
   {
@@ -192,33 +192,33 @@ void s(double threshold)
     else
     {
       int quark;
-      double ch,nh,p;     double deltar, pt, eta,max_pt,jets_pt; double pi_pt,kion_pt,proton_pt,kion_minus_pt,pi_minus_pt,anti_pt,neutral_pt,photon_pt,lepton_pt; int pi ,kion,proton;
+      double ch,nh,p;     double deltar, pt, eta,max_pt,jets_pt,delta,max_phi,max_eta; double pi_pt,kion_pt,proton_pt,kion_minus_pt,pi_minus_pt,anti_pt,neutral_pt,photon_pt,lepton_pt; int pi ,kion,proton;
      int max_id;
      //sscanf(line.c_str(),"%d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",&quark,&pt,&kion_minus_pt,&pi_minus_pt,&deltar,&anti_pt,&eta,&pi_pt,&kion_pt,&proton_pt,&neutral_pt,&photon_pt,&lepton_pt);
-     sscanf(line.c_str(),"%d %lf %d %lf %lf",&quark,&deltar,&max_id,&max_pt,&jets_pt);//,&anti_pt,&eta,&pi_pt,&kion_pt,&proton_pt,&neutral_pt,&photon_pt,&lepton_pt);
+     sscanf(line.c_str(),"%d %lf %d %lf %lf %lf %lf %lf",&quark,&deltar,&max_id,&max_pt,&jets_pt,&delta,&max_phi,&max_eta);//,&anti_pt,&eta,&pi_pt,&kion_pt,&proton_pt,&neutral_pt,&photon_pt,&lepton_pt);
     if(deltar<=threshold){
-     if(quark ==4) a1++;
-     else if(quark==5)a2++;
-     else if(quark==6)a3++;
-     else if(quark==-4)a4++;
-     else if(quark==-5)a5++;
-     else if(quark==-6)a6++;}
+     if(quark ==1) a1++;
+     else if(quark==2)a2++;
+     else if(quark==3)a3++;
+     else if(quark==-1)a4++;
+     else if(quark==-2)a5++;
+     else if(quark==-3)a6++;}
     //  double cmp_pt = pt+neutral_pt+photon_pt+lepton_pt;
     //  std::vector<double> my_vec = { anti_pt/cmp_pt,kion_minus_pt/cmp_pt,pi_minus_pt/cmp_pt,pi_pt/cmp_pt,kion_pt/cmp_pt,proton_pt/cmp_pt,photon_pt/cmp_pt,neutral_pt/cmp_pt};
      //pt here is charged hadron pt
      //std::vector<double> my_vec = { pt/cmp_pt,neutral_pt/cmp_pt,photon_pt/cmp_pt,lepton_pt/cmp_pt};
     //  int argmax = arg_max(my_vec);
-    TParticlePDG *pdg;
-     pdg = pdgn->GetParticle(max_id);
-     TString part = pdg->ParticleClass();
-     double charge = pdg->Charge();
-     if(part=="Meson"||part=="Baryon")
-              {if(charge!=0) {max_id=0;}
-              else if(charge==0)max_id=1;}
-              if(part=="Lepton")max_id=2;
-            if(max_id==22)max_id=3;
+    // TParticlePDG *pdg;
+    //  pdg = pdgn->GetParticle(max_id);
+    //  TString part = pdg->ParticleClass();
+    //  double charge = pdg->Charge();
+    //  if(part=="Meson"||part=="Baryon")
+    //           {if(charge!=0) {max_id=0;}
+    //           else if(charge==0)max_id=1;}
+    //           if(part=="Lepton")max_id=2;
+    //         if(max_id==22)max_id=3;
      switch (max_id){
-       case 0:
+       case -2212:
      if(deltar<=threshold)
       {counter_all++;
        for (int idex=0;idex<2;idex++)
@@ -226,13 +226,13 @@ void s(double threshold)
            {
              if(quark ==flavor[idex][jdex])
                 if(max_pt/jets_pt>=0.)
-                  fraction[idex][jdex]->Fill(0.5);
+                  fraction[idex][jdex]->Fill(delta);
            }
         }
       }
       break;
 
-     case 1:
+     case -321:
      if(deltar<=threshold)
       {counter_all++;
        for (int idex=0;idex<2;idex++)
@@ -240,13 +240,13 @@ void s(double threshold)
            {
              if(quark ==flavor[idex][jdex])
              if(max_pt/jets_pt>=0.)
-                fraction1[idex][jdex]->Fill(0.5);
+                fraction1[idex][jdex]->Fill(delta);
 
            }
         }
       }
       break;
-      case 2:
+      case -211:
       if(deltar<=threshold)
       { counter_all++;
        for (int idex=0;idex<2;idex++)
@@ -254,13 +254,13 @@ void s(double threshold)
            {
              if(quark ==flavor[idex][jdex])
              if(max_pt/jets_pt>=0.)
-                fraction2[idex][jdex]->Fill(0.5);
+                fraction2[idex][jdex]->Fill(delta);
 
            }
         }
       }
       break;
-      case 3:
+      case 211:
       if(deltar<=threshold)
       { counter_all++;
        for (int idex=0;idex<2;idex++)
@@ -268,7 +268,7 @@ void s(double threshold)
            {
              if(quark ==flavor[idex][jdex])
             if(max_pt/jets_pt>=0.)
-               fraction3[idex][jdex]->Fill(0.5);
+               fraction3[idex][jdex]->Fill(delta);
 
            }
         }
@@ -281,8 +281,8 @@ void s(double threshold)
         {for(int jdex=0;jdex<3;jdex++)
            {
              if(quark ==flavor[idex][jdex])
-             if(max_pt/jets_pt>=0.5)
-                fraction4[idex][jdex]->Fill(0.5);
+             if(max_pt/jets_pt>=0.)
+                fraction4[idex][jdex]->Fill(delta);
        
                 
            }
@@ -296,8 +296,8 @@ void s(double threshold)
         {for(int jdex=0;jdex<3;jdex++)
            {
              if(quark ==flavor[idex][jdex])
-              if(max_pt/jets_pt>=0.5)
-                fraction5[idex][jdex]->Fill(0.5);
+              if(max_pt/jets_pt>=0.)
+                fraction5[idex][jdex]->Fill(delta);
     
                
            }
@@ -311,8 +311,8 @@ void s(double threshold)
         {for(int jdex=0;jdex<3;jdex++)
            {
              if(quark ==flavor[idex][jdex])
-              if(max_pt/jets_pt>=0.5)
-       fraction6[idex][jdex]->Fill(0.5);
+              if(max_pt/jets_pt>=0.)
+       fraction6[idex][jdex]->Fill(delta);
 
            }
         }
@@ -369,13 +369,13 @@ for (int ieta=0;ieta<2;ieta++)
       fraction1[ieta][ipt]->GetXaxis()->SetTitle("number of photons");
       fraction1[ieta][ipt]->GetYaxis()->SetTitle("Number of Jets");//
       fraction[ieta][ipt]->SetLineColor(1);
-      anti_proton.push_back(fraction[ieta][ipt]->GetEntries());
-      kion_minus.push_back(fraction1[ieta][ipt]->GetEntries());
-      pi_minus.push_back(fraction2[ieta][ipt]->GetEntries());
-      pi_plus.push_back(fraction3[ieta][ipt]->GetEntries());
-      kion_plus.push_back(fraction4[ieta][ipt]->GetEntries());
-      proton.push_back(fraction5[ieta][ipt]->GetEntries());
-      photon.push_back(fraction6[ieta][ipt]->GetEntries());
+      anti_proton.push_back(fraction[ieta][ipt]->GetMean());
+      kion_minus.push_back(fraction1[ieta][ipt]->GetMean());
+      pi_minus.push_back(fraction2[ieta][ipt]->GetMean());
+      pi_plus.push_back(fraction3[ieta][ipt]->GetMean());
+      kion_plus.push_back(fraction4[ieta][ipt]->GetMean());
+      proton.push_back(fraction5[ieta][ipt]->GetMean());
+      photon.push_back(fraction6[ieta][ipt]->GetMean());
       // neutral.push_back(fraction7[ieta][ipt]->GetEntries());
 // fraction1[ieta][ipt]->SetMarkerSize(0.8);
 // fraction1[ieta][ipt]->SetMarkerStyle(20);
@@ -431,54 +431,83 @@ for (int ieta=0;ieta<2;ieta++)
         gStyle->SetHistMinimumZero(kTRUE);
         c1->cd(k)->SetGrid(); c1->cd(k)->SetBottomMargin(0.1);
  	c1->cd(k)->SetFillColor(10);  c1->cd(k)->SetBorderMode(0);
-   TH1F *h = new TH1F("h","",4,0,4);
-   	h->SetFillColor(4);
-	h->SetBarWidth(0.4); h->SetBarOffset(0.1); h->SetStats(0);
-	h->SetMinimum(0.);
- h->SetMaximum(1.); 
- // double all = anti_proton[k-1]+kion_minus[k-1]+pi_minus[k-1]+pi_plus[k-1]+kion_plus[k-1]+proton[k-1];
- //double all =anti_proton[k-1]+kion_minus[k-1]+pi_minus[k-1]+pi_plus[k-1];
- cout<<cnt[k-1]<<endl;
-   //cout<<all<<endl;
-		h->Fill(os_X[0].c_str(), anti_proton[k-1]/cnt[k-1]);
-    //cout<<anti_proton[k-1]/1.<<endl;
-		h->GetXaxis()->SetBinLabel(1,os_X[0].c_str());
-    h->Fill(os_X[1].c_str(), kion_minus[k-1]/cnt[k-1]);
-		h->GetXaxis()->SetBinLabel(2,os_X[1].c_str());
-    h->Fill(os_X[2].c_str(), pi_minus[k-1]/cnt[k-1]);
-		h->GetXaxis()->SetBinLabel(3,os_X[2].c_str());  
-    h->Fill(os_X[3].c_str(), pi_plus[k-1]/cnt[k-1]);
-	 	h->GetXaxis()->SetBinLabel(4,os_X[3].c_str());
-    // h->Fill(os_X[4].c_str(), kion_plus[k-1]/cnt[k-1]);
-		// h->GetXaxis()->SetBinLabel(5,os_X[4].c_str());
-    // h->Fill(os_X[5].c_str(), proton[k-1]/cnt[k-1]);
-		// h->GetXaxis()->SetBinLabel(6,os_X[5].c_str());
-    // h->Fill(os_X[6].c_str(), photon[k-1]/q[k-1]);
-		// h->GetXaxis()->SetBinLabel(7,os_X[6].c_str());
-    double eff = (anti_proton[k-1]+kion_minus[k-1]+pi_minus[k-1]+pi_plus[k-1])/cnt[k-1];
-    cout<<"eff:"<<eff<<endl;
-     h->SetTitle(os_y[k-1].c_str());
-    // h->Fill(os_X[7].c_str(), neutral[k-1]/q[k-1]);
-		// h->GetXaxis()->SetBinLabel(8,os_X[7].c_str());
+   fraction[ieta][ipt]->Sumw2();
+     fraction1[ieta][ipt]->Sumw2();
+     fraction2[ieta][ipt]->Sumw2();
+     fraction3[ieta][ipt]->Sumw2();
+     fraction4[ieta][ipt]->Sumw2();
+     fraction5[ieta][ipt]->Sumw2();
+     fraction6[ieta][ipt]->Sumw2();
+     fraction[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction[ieta][ipt]->Integral());
+     fraction[ieta][ipt]->SetLineColor(1);
+     fraction1[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction1[ieta][ipt]->Integral());
+     fraction1[ieta][ipt]->SetLineColor(2);
+     fraction2[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction2[ieta][ipt]->Integral());
+     fraction2[ieta][ipt]->SetLineColor(28);
+     fraction3[ieta][ipt]->SetLineColor(4);
+     fraction3[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction3[ieta][ipt]->Integral());
+     fraction4[ieta][ipt]->SetLineColor(9);
+     fraction4[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction4[ieta][ipt]->Integral());
+     fraction5[ieta][ipt]->SetLineColor(46);
+     fraction5[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction5[ieta][ipt]->Integral());
+     fraction6[ieta][ipt]->SetLineColor(32);
+     fraction6[ieta][ipt]->Scale(fraction3[ieta][ipt]->Integral()/fraction5[ieta][ipt]->Integral());
+      fraction[ieta][ipt]->SetTitle(os_y[k-1].c_str());
+    fraction[ieta][ipt]->Draw();
+    fraction1[ieta][ipt]->Draw("same&&hist");
+    fraction2[ieta][ipt]->Draw("same&&hist");
+    fraction3[ieta][ipt]->Draw("same&&hist");
+    fraction4[ieta][ipt]->Draw("same&&hist");
+    fraction5[ieta][ipt]->Draw("same&&hist");
+fraction6[ieta][ipt]->Draw("same&&hist");
+
+  //  TH1F *h = new TH1F("h","",7,0,7);
+  //  	h->SetFillColor(4);
+	// h->SetBarWidth(0.4); h->SetBarOffset(0.1); h->SetStats(0);
+	// h->SetMinimum(0.);
+// h->SetMaximum(1.); 
+//  cout<<cnt[k-1]<<endl;
+// 		h->Fill(os_X[0].c_str(), anti_proton[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(1,os_X[0].c_str());
+//     h->Fill(os_X[1].c_str(), kion_minus[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(2,os_X[1].c_str());
+//     h->Fill(os_X[2].c_str(), pi_minus[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(3,os_X[2].c_str());  
+//     h->Fill(os_X[3].c_str(), pi_plus[k-1]/1.);
+// 	 	h->GetXaxis()->SetBinLabel(4,os_X[3].c_str());
+//     h->Fill(os_X[4].c_str(), kion_plus[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(5,os_X[4].c_str());
+//     h->Fill(os_X[5].c_str(), proton[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(6,os_X[5].c_str());
+//     h->Fill(os_X[6].c_str(), photon[k-1]/1.);
+// 		h->GetXaxis()->SetBinLabel(7,os_X[6].c_str());
+//    // double eff = (anti_proton[k-1]+kion_minus[k-1]+pi_minus[k-1]+pi_plus[k-1]+kion_plus[k-1]+proton[k-1]+photon[k-1])/cnt[k-1];
+//     //cout<<"eff:"<<eff<<endl;
+//      h->SetTitle(os_y[k-1].c_str());
 
       TLatex latex;
       latex.SetTextAlign(13);  //align at top
       // mean<<"mean = "<<fraction[ieta][ipt]->GetEntries();
       TPaveText *pave = new TPaveText(.6,.75,.9,.9,"brNDC");
-      pave->SetTextAlign(12);
-      char temp[50];
-      sprintf(temp,"efficiency= %3.2f",eff);
-      TText *text = pave->AddText(temp);
-      text->SetTextFont(72);
-      text->SetTextAlign(22);
-       h->Draw("bar1&&hist");
-     pave->Draw();
-  //   TLegend *leg = new TLegend(0.78,0.8,0.95,0.95);
-	// leg->SetTextSize(0.03); leg->SetBorderSize(2); leg->SetMargin(0.15);
-	// leg->SetFillColor(10);
-	// leg->AddEntry(h,"nocut","f");
-  //   
-  //    leg->Draw();
+      // pave->SetTextAlign(12);
+      // char temp[50];
+      // sprintf(temp,"efficiency= %3.2f ",eff);
+      // TText *text = pave->AddText(temp);
+      // text->SetTextFont(72);
+      // text->SetTextAlign(22);
+    //   h->GetYaxis()->SetTitle("#DeltaR");
+    //  pave->Draw();
+    TLegend *leg = new TLegend(0.6,0.6,0.72,0.9);
+	leg->SetTextSize(0.03); leg->SetBorderSize(2); leg->SetMargin(0.15);
+	leg->SetFillColor(10);
+	 leg->AddEntry(fraction6[ieta][ipt],"photon","l");
+   leg->AddEntry(fraction[ieta][ipt],"p^{-}","lep");
+   leg->AddEntry(fraction1[ieta][ipt],"K^{-}","l");
+   leg->AddEntry(fraction2[ieta][ipt],"#pi^{-}","l");
+   leg->AddEntry(fraction3[ieta][ipt],"#pi^{+}","l");
+    leg->AddEntry(fraction4[ieta][ipt],"K^{+}","l");
+    leg->AddEntry(fraction5[ieta][ipt],"p^{+}","l");
+     leg->Draw();
       }
     }
     cout<<counter_all<<endl;
